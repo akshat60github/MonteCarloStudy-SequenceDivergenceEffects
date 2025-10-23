@@ -66,4 +66,28 @@ for level in divergence_levels_to_test:
 
 
 3. 
+#parameters
+divergence_levels = [0.01, 0.05, 0.10, 0.20]
+num_replicates = 40
+# initializing a dictionary to store all the data
+synthetic_data = {}
+print("generating the full replicate dataset.")
 
+# loop over each divergence level
+for level in divergence_levels:
+    replicates_for_level = []
+    # create the specified number of replicates for this level
+    for _ in range(num_replicates):
+        # call the function defined in step 2
+        mutated_seq = mutate_sequence(original_sequence, level, include_indels=True)
+        replicates_for_level.append(mutated_seq)
+    # store the list of replicates in the main dictionary
+    synthetic_data[level] = replicates_for_level
+    print(f"generated {len(replicates_for_level)} replicates for {level*100:.0f}% divergence.")
+
+print("\n data generation complete.")
+# now "synthetic_data" holds all the mutated sequences, organized by divergence level.
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------
