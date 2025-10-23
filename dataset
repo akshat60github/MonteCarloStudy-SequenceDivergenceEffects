@@ -1,2 +1,28 @@
 Synthetic Dataset generation
 
+1. 
+import random
+
+# first im defining the bases and specifying all parameters.
+dna_bases = 'ATGC'
+sequence_length = 155
+motif_length = 8
+# generating the motif first
+motif = "".join(random.choices(dna_bases, k=motif_length)) #using random
+# now generating the full length random sequence
+full_sequence = "".join(random.choices(dna_bases, k=sequence_length))
+# im choosing a random start position for the motif to be placed, ensures the motif will fit entirely within the sequence
+start_index = random.randint(0, sequence_length - motif_length)
+# lastly i will overwrite the part of the sequence with the actual motif
+# we build the new sequence from three pieces:
+# a) the part before the motif
+# b) the motif itself
+# c) the part after the motif
+original_sequence = full_sequence[:start_index] + motif + full_sequence[start_index + motif_length:]
+
+print(f"original motif: {motif}")
+print(f"sequence (of length {len(original_sequence)}):")
+print(original_sequence)
+
+
+2. 
