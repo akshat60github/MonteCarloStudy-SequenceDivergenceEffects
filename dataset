@@ -26,3 +26,44 @@ print(original_sequence)
 
 
 2. 
+import random
+# function that creates a single mutated copy
+def mutate_sequence(sequence, divergence_level, include_indels=True):
+    #introduces mutations into a sequence. can include indels or only substitutions.
+    mutated_list = list(sequence)
+    i = 0
+    while i < len(mutated_list):
+        if random.random() < divergence_level:
+            if not include_indels:
+                mutation_type = 'substitution'
+            else:
+                mutation_type = random.choices(
+                    ['substitution', 'insertion', 'deletion'],
+                    weights=[80, 10, 10]
+                )[0]
+            if mutation_type == 'substitution':
+                current_base = mutated_list[i]
+                possible_new_bases = [b for b in dna_bases if b != current_base]
+                if possible_new_bases:
+                    mutated_list[i] = random.choice(possible_new_bases)
+            elif mutation_type == 'insertion':
+                new_base = random.choice(dna_bases)
+                mutated_list.insert(i + 1, new_base)
+                i += 1
+            elif mutation_type == 'deletion':
+                mutated_list.pop(i)
+                continue
+        i += 1
+    return "".join(mutated_list)
+
+#demonstration of the function at each divergence level
+divergence_levels_to_test = [0.01, 0.05, 0.10, 0.20]
+print("testing the mutation function at different levels.")
+for level in divergence_levels_to_test:
+    # example for each level to show it works
+    test_mutation = mutate_sequence(original_sequence, level)
+    print(f"example mutation at {level*100:.0f}% divergence:\n{test_mutation}\n")
+
+
+3. 
+
